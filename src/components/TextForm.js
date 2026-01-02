@@ -1,56 +1,118 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 
 export default function TextForm(props) {
-    const handleUpClick = ()=>{
-        // console.log("Uppercase was clocked" + text);
-        let newTex = text.toUpperCase();
-        setText(newTex)
-    }
+  const [text, setText] = useState("");
 
-    const handleLoClick = ()=>{
-        // console.log("Uppercase was clocked" + text);
-        let newTex = text.toLocaleLowerCase();
-        setText(newTex)
-    }
+  // Convert to Uppercase
+  const handleUpperCase = () => {
+    setText(text.toUpperCase());
+  };
 
-    const handleClearClick = ()=>{
-        // console.log("Uppercase was clocked" + text);
-        let newTex = '';
-        setText(newTex)
-    }
+  // Convert to Lowercase
+  const handleLowerCase = () => {
+    setText(text.toLowerCase());
+  };
 
+  // Clear Text
+  const handleClearText = () => {
+    setText("");
+  };
 
-    const handleOnChange = (event)=>{
-        // console.log("On change");
-        setText(event.target.value);
-    }
-    const [text, setText] = useState("")
+  // Remove Extra Spaces
+  const handleExtraSpaces = () => {
+    let newText = text.replace(/\s+/g, " ").trim();
+    setText(newText);
+  };
+
+  // Copy to Clipboard
+  const handleCopy = () => {
+    navigator.clipboard.writeText(text);
+    alert("Text copied to clipboard!");
+  };
+
+  // Handle Change
+  const handleOnChange = (event) => {
+    setText(event.target.value);
+  };
+
+  // Calculations
+  const words = text.trim() === "" ? 0 : text.trim().split(/\s+/).length;
+  const characters = text.length;
+  const readingTime = (0.008 * words).toFixed(2);
 
   return (
     <>
-    <div className="container">
-        <h1>{props.heading}</h1>
-      <div className="mb-3">
+      <div className="container my-4">
+        <h1 className="mb-3">{props.heading}</h1>
+
         <textarea
           className="form-control"
           value={text}
           onChange={handleOnChange}
-          id="myBox"
-          rows="15"
+          rows="8"
+          placeholder="Enter your text here..."
         ></textarea>
-      </div>
-      <button className="btn btn-primary mx-2" onClick={handleUpClick}>Convart to UpperCase</button>
-      <button className="btn btn-primary mx-2" onClick={handleLoClick}>Convart to LowerCase</button>
-      <button className="btn btn-primary mx-2" onClick={handleClearClick}>Clear Text</button>
-    </div>
-    <div className="contaoner my-3">
-        <h2>Your text summary</h2>
-        <p>{text.split(" ").length} words and {text.length} characters</p>
-        <p>{0.008 * text.split(" ").length }Minutes read</p>
-        <h1>Preview</h1>
-        <p>{text}</p>
 
-    </div>
+        <div className="mt-3">
+          <button
+            className="btn btn-primary mx-1"
+            onClick={handleUpperCase}
+            disabled={text.length === 0}
+          >
+            Convert to Uppercase
+          </button>
+
+          <button
+            className="btn btn-primary mx-1"
+            onClick={handleLowerCase}
+            disabled={text.length === 0}
+          >
+            Convert to Lowercase
+          </button>
+
+          <button
+            className="btn btn-success mx-1"
+            onClick={handleCopy}
+            disabled={text.length === 0}
+          >
+            Copy Text
+          </button>
+
+          <button
+            className="btn btn-warning mx-1"
+            onClick={handleExtraSpaces}
+            disabled={text.length === 0}
+          >
+            Remove Extra Spaces
+          </button>
+
+          <button
+            className="btn btn-danger mx-1"
+            onClick={handleClearText}
+            disabled={text.length === 0}
+          >
+            Clear Text
+          </button>
+        </div>
+      </div>
+
+      <div className="container my-4">
+        <h2>Text Summary</h2>
+        <p>
+          Number of words: <b>{words}</b>
+        </p>
+        <p>
+          Number of characters: <b>{characters}</b>
+        </p>
+        <p>
+          Reading time: <b>{readingTime}</b> minutes
+        </p>
+
+        <h2 className="mt-3">Preview</h2>
+        <div className="border p-3 rounded bg-light">
+          {text.length > 0 ? text : "Nothing to preview"}
+        </div>
+      </div>
     </>
   );
 }
