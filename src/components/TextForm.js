@@ -6,28 +6,33 @@ export default function TextForm(props) {
   // Convert to Uppercase
   const handleUpperCase = () => {
     setText(text.toUpperCase());
+    props.showAlert("converted to uppercase!", "success")
   };
 
   // Convert to Lowercase
   const handleLowerCase = () => {
     setText(text.toLowerCase());
+     props.showAlert("converted to lowercase!", "success")
   };
 
   // Clear Text
   const handleClearText = () => {
     setText("");
+    props.showAlert("Text cleard!", "success")
   };
 
   // Remove Extra Spaces
   const handleExtraSpaces = () => {
     let newText = text.replace(/\s+/g, " ").trim();
     setText(newText);
+    props.showAlert("Removed extra spaces!", "success")
   };
 
   // Copy to Clipboard
   const handleCopy = () => {
     navigator.clipboard.writeText(text);
-    alert("Text copied to clipboard!");
+    // alert("Text copied to clipboard!");
+    props.showAlert("copied to clipboard!", "success")
   };
 
   // Handle Change
