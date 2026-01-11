@@ -116,7 +116,7 @@ export default function TextForm(props) {
 
         <h2 className="mt-3">Preview</h2>
         <div className="border p-3 rounded bg-light">
-          {text.length > 0 ? text : "Enter somthing in ths textbox above to preview it here"}
+          {text.length > 0 ? text : "Enter somthing in this textbox above to preview it here"}
         </div>
       </div>
     </>
