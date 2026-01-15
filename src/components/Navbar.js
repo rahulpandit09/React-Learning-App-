@@ -8,10 +8,29 @@ export default function Navbar(props) {
     >
       <div className="container-fluid">
 
-        {/* Brand (plain text, no link) */}
-        <span className="navbar-brand">
-          {props.title}
-        </span>
+        {/* 🔹 LEFT SIDE: Brand + Home */}
+        <div className="d-flex align-items-center">
+
+          {/* Brand text */}
+          <span className="navbar-brand">
+            {props.title}
+          </span>
+
+          {/* ✅ FIX: Home now navigates to /home */}
+          <span
+            className={`nav-link mb-0 ${
+              props.mode === "light" ? "text-dark" : "text-light"
+            }`}
+            style={{ cursor: "pointer" }}
+            onClick={() => {
+              // 🔹 CHANGE #1: navigate to /home on click
+              window.location.href = "/home";
+            }}
+          >
+            Home
+          </span>
+
+        </div>
 
         <div className="collapse navbar-collapse">
 
