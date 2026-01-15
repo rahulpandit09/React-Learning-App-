@@ -1,61 +1,62 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import Navbar from "./components/Navbar";
-import About from "./components/About";
 import TextForm from "./components/TextForm";
 import Alert from "./components/Alert";
-import { BrowserRouter as Router, Switch, Route,  } from "react-router-dom";
 
 function App() {
+  // ✅ state to store light / dark mode
   const [mode, setMode] = useState("light");
+
+  // ✅ state to store alert object (or null)
   const [alert, setAlert] = useState(null);
 
+  // ✅ function to show alert
   const showAlert = (message, type) => {
-    setAlert({ msg: message, type });
-    setTimeout(() => setAlert(null), 1500);
+    setAlert({ msg: message, type }); // 🔹 SET alert state
+    setTimeout(() => {
+      setAlert(null); // 🔹 CLEAR alert after 1.5 sec
+    }, 1500);
   };
 
+  // ✅ toggle dark/light mode
   const toggleMode = () => {
     if (mode === "light") {
       setMode("dark");
       document.body.style.background = "#042743";
-      showAlert("Dark mode has been enabled", "success");
-      document.title = "TextUtils - Dark Mode";
+      showAlert("Dark mode has been enabled", "success"); // 🔹 alert call
     } else {
       setMode("light");
       document.body.style.background = "white";
-      showAlert("Light mode has been enabled", "success");
-      document.title = "TextUtils - Light Mode";
+      showAlert("Light mode has been enabled", "success"); // 🔹 alert call
     }
   };
 
-  return (
-    <Router path="/textutels">
-      <Navbar
-        title="TestUtils"
-        aboutText="About"
-        homepage="home"
-        mode={mode}
-        toggleMode={toggleMode}
-      />
+  // ✅ change browser tab title when mode changes
+  useEffect(() => {
+    document.title =
+      mode === "dark"
+        ? "TextUtils - Dark Mode"
+        : "TextUtils - Light Mode";
+  }, [mode]);
 
+  return (
+    <>
+      {/* 🔹 Navbar gets toggleMode + mode */}
+      <Navbar title="TextUtils" mode={mode} toggleMode={toggleMode} />
+
+      {/* 🔹 Alert component receives alert state */}
       <Alert alert={alert} />
 
       <div className="container my-3">
-        <Switch>
-          <Route exact path="/about">
-            <About />
-          </Route>
-          <Route exact path="/home">
-            <TextForm
-              showAlert={showAlert}
-              heading="Enter the Text to analyze Below"
-              mode={mode}
-            />
-          </Route>
-        </Switch>
+        {/* 🔹 TextForm receives showAlert */}
+        <TextForm
+          showAlert={showAlert}
+          heading="Enter the text to analyze below"
+          mode={mode}
+        />
       </div>
-    </Router>
+    </>
   );
 }
 

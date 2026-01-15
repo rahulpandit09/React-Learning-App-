@@ -6,33 +6,33 @@ export default function TextForm(props) {
   // Convert to Uppercase
   const handleUpperCase = () => {
     setText(text.toUpperCase());
-    props.showAlert("converted to uppercase!", "success")
+    props.showAlert("converted to uppercase!", "success");
   };
 
   // Convert to Lowercase
   const handleLowerCase = () => {
     setText(text.toLowerCase());
-     props.showAlert("converted to lowercase!", "success")
+    props.showAlert("converted to lowercase!", "success");
   };
 
   // Clear Text
   const handleClearText = () => {
     setText("");
-    props.showAlert("Text cleard!", "success")
+    props.showAlert("Text cleard!", "success");
   };
 
   // Remove Extra Spaces
   const handleExtraSpaces = () => {
     let newText = text.replace(/\s+/g, " ").trim();
     setText(newText);
-    props.showAlert("Removed extra spaces!", "success")
+    props.showAlert("Removed extra spaces!", "success");
   };
 
   // Copy to Clipboard
   const handleCopy = () => {
     navigator.clipboard.writeText(text);
     // alert("Text copied to clipboard!");
-    props.showAlert("copied to clipboard!", "success")
+    props.showAlert("copied to clipboard!", "success");
   };
 
   // Handle Change
@@ -47,13 +47,19 @@ export default function TextForm(props) {
 
   return (
     <>
-      <div className="container my-4" style={{color: props.mode === 'dark'?'white':'#042743'}}>
+      <div
+        className="container my-4"
+        style={{ color: props.mode === "dark" ? "white" : "#042743" }}
+      >
         <h1 className="mb-3">{props.heading}</h1>
         <textarea
           className="form-control"
           value={text}
           onChange={handleOnChange}
-          style={{backgroundColor: props.mode === 'dark'?'gray':'white',color:props.mode === 'dark'?'white':'#042743'}}
+          style={{
+            backgroundColor: props.mode === "dark" ? "gray" : "white",
+            color: props.mode === "dark" ? "white" : "#042743",
+          }}
           id="myBox"
           rows="8"
           placeholder="Enter your text here..."
@@ -102,7 +108,10 @@ export default function TextForm(props) {
         </div>
       </div>
 
-      <div className="container my-4" style={{color: props.mode === 'dark'?'white':'#042743'}}>
+      <div
+        className="container my-4"
+        style={{ color: props.mode === "dark" ? "white" : "#042743" }}
+      >
         <h2>Text Summary</h2>
         <p>
           Number of words: <b>{words}</b>
@@ -114,9 +123,21 @@ export default function TextForm(props) {
           Reading time: <b>{readingTime}</b> minutes
         </p>
 
-        <h2 className="mt-3">Preview</h2>
+        {/* <h2 className="mt-3">Preview</h2>
         <div className="border p-3 rounded bg-light">
           {text.length > 0 ? text : "Enter somthing in this textbox above to preview it here"}
+        </div> */}
+        <h2 className="mt-3">Preview</h2>
+        <div
+          className="border p-3 rounded"
+          style={{
+            backgroundColor: props.mode === "dark" ? "#2c2c2c" : "#f8f9fa",
+            color: props.mode === "dark" ? "white" : "#042743",
+          }}
+        >
+          {text.length > 0
+            ? text
+            : "Enter something in this textbox above to preview it here"}
         </div>
       </div>
     </>

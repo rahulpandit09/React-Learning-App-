@@ -1,32 +1,58 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Link, NavLink } from "react-router-dom";
 
 export default function Navbar(props) {
   return (
-    <nav className={`navbar navbar-expand-lg navbar-${props.mode} bg-${props.mode}`}>
+    <nav
+      className={`navbar navbar-expand-lg navbar-${props.mode} bg-${props.mode}`}
+    >
       <div className="container-fluid">
 
-        {/* Brand */}
-        <Link className="navbar-brand" to="/textutels">
+        {/* Brand (plain text, no link) */}
+        <span className="navbar-brand">
           {props.title}
-        </Link>
+        </span>
 
         <div className="collapse navbar-collapse">
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item">
-              <NavLink exact to="/home" className="nav-link" aria-current="page" activeClassName="active">
-                Home
-              </NavLink>
-            </li>
 
-            <li className="nav-item">
-              <NavLink exact to="/about" className="nav-link" activeClassName="active">
-                {props.aboutText}
-              </NavLink>
-            </li>
+          {/* Right side items */}
+          <div className="d-flex ms-auto align-items-center">
 
-          </ul>
+            {/* Search */}
+            <form className="d-flex me-3" role="search">
+              <input
+                className="form-control me-2"
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+              />
+              <button className="btn btn-outline-success" type="submit">
+                Search
+              </button>
+            </form>
+
+            {/* Dark Mode Toggle */}
+            <div
+              className={`form-check form-switch text-${
+                props.mode === "light" ? "dark" : "light"
+              }`}
+            >
+              <input
+                className="form-check-input"
+                type="checkbox"
+                role="switch"
+                id="darkModeSwitch"
+                onChange={props.toggleMode}
+              />
+              <label
+                className="form-check-label"
+                htmlFor="darkModeSwitch"
+              >
+                Enable Dark Mode
+              </label>
+            </div>
+
+          </div>
         </div>
       </div>
     </nav>
@@ -35,10 +61,10 @@ export default function Navbar(props) {
 
 Navbar.propTypes = {
   title: PropTypes.string.isRequired,
-  aboutText: PropTypes.string.isRequired,
+  toggleMode: PropTypes.func,
+  mode: PropTypes.string,
 };
 
 Navbar.defaultProps = {
   title: "TextUtils",
-  aboutText: "About",
 };
