@@ -57,7 +57,7 @@ export default function TextForm(props) {
           value={text}
           onChange={handleOnChange}
           style={{
-            backgroundColor: props.mode === "dark" ? "gray" : "white",
+            backgroundColor: props.mode === "dark" ? "#13466e" : "white",
             color: props.mode === "dark" ? "white" : "#042743",
           }}
           id="myBox"
@@ -67,7 +67,7 @@ export default function TextForm(props) {
 
         <div className="mt-3">
           <button
-            className="btn btn-primary mx-1"
+            className="btn btn-primary mx-1 my-1"
             onClick={handleUpperCase}
             disabled={text.length === 0}
           >
@@ -75,7 +75,7 @@ export default function TextForm(props) {
           </button>
 
           <button
-            className="btn btn-primary mx-1"
+            className="btn btn-primary mx-1 my-1"
             onClick={handleLowerCase}
             disabled={text.length === 0}
           >
@@ -83,7 +83,7 @@ export default function TextForm(props) {
           </button>
 
           <button
-            className="btn btn-success mx-1"
+            className="btn btn-success mx-1 my-1"
             onClick={handleCopy}
             disabled={text.length === 0}
           >
@@ -91,7 +91,7 @@ export default function TextForm(props) {
           </button>
 
           <button
-            className="btn btn-warning mx-1"
+            className="btn btn-warning mx-1 my-1"
             onClick={handleExtraSpaces}
             disabled={text.length === 0}
           >
@@ -99,7 +99,7 @@ export default function TextForm(props) {
           </button>
 
           <button
-            className="btn btn-danger mx-1"
+            className="btn btn-danger mx-1 my-1"
             onClick={handleClearText}
             disabled={text.length === 0}
           >
